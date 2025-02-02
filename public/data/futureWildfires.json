@@ -1,0 +1,276 @@
+{
+  "predictions": {
+    "2025-02-12": [
+      {
+        "time": "19:00:00",
+        "location": {
+          "latitude": 44.2365,
+          "longitude": -72.1486
+        },
+        "risk_factors": {
+          "fire_probability": 0.9185916185379028,
+          "temperature": 38.0,
+          "humidity": 10.0,
+          "wind_speed": 34.0,
+          "fwi": 155.7483429271827,
+          "dsr": 206.61335196133695
+        }
+      }
+    ],
+    "2025-02-23": [
+      {
+        "time": "12:00:00",
+        "location": {
+          "latitude": 44.1986,
+          "longitude": -73.9354
+        },
+        "risk_factors": {
+          "fire_probability": 0.911284863948822,
+          "temperature": 37.3,
+          "humidity": 34.0,
+          "wind_speed": 40.0,
+          "fwi": 159.94677850765197,
+          "dsr": 216.57360933422532
+        }
+      }
+    ],
+    "2025-03-10": [
+      {
+        "time": "21:00:00",
+        "location": {
+          "latitude": 44.4744,
+          "longitude": -72.3249
+        },
+        "risk_factors": {
+          "fire_probability": 0.9087129235267639,
+          "temperature": 40.0,
+          "humidity": 10.0,
+          "wind_speed": 33.0,
+          "fwi": 184.4813551839368,
+          "dsr": 278.8077194622932
+        }
+      }
+    ],
+    "2025-03-18": [
+      {
+        "time": "18:00:00",
+        "location": {
+          "latitude": 45.3994,
+          "longitude": -73.4069
+        },
+        "risk_factors": {
+          "fire_probability": 0.9196276664733887,
+          "temperature": 38.8,
+          "humidity": 10.0,
+          "wind_speed": 27.0,
+          "fwi": 108.26084498257903,
+          "dsr": 108.53837222920572
+        }
+      }
+    ],
+    "2025-04-08": [
+      {
+        "time": "17:00:00",
+        "location": {
+          "latitude": 44.712,
+          "longitude": -73.4962
+        },
+        "risk_factors": {
+          "fire_probability": 0.9280297756195068,
+          "temperature": 34.8,
+          "humidity": 14.0,
+          "wind_speed": 33.0,
+          "fwi": 123.86878030569383,
+          "dsr": 137.75627745718307
+        }
+      }
+    ],
+    "2025-04-21": [
+      {
+        "time": "04:00:00",
+        "location": {
+          "latitude": 44.6803,
+          "longitude": -73.7414
+        },
+        "risk_factors": {
+          "fire_probability": 0.913381814956665,
+          "temperature": 38.9,
+          "humidity": 26.0,
+          "wind_speed": 38.0,
+          "fwi": 214.91412678066092,
+          "dsr": 365.3237353397596
+        }
+      }
+    ],
+    "2025-04-28": [
+      {
+        "time": "05:00:00",
+        "location": {
+          "latitude": 44.7443,
+          "longitude": -73.1777
+        },
+        "risk_factors": {
+          "fire_probability": 0.913541316986084,
+          "temperature": 37.7,
+          "humidity": 14.0,
+          "wind_speed": 39.0,
+          "fwi": 204.15314740254536,
+          "dsr": 333.57321077747054
+        }
+      }
+    ],
+    "2025-05-13": [
+      {
+        "time": "01:00:00",
+        "location": {
+          "latitude": 45.3978,
+          "longitude": -73.619
+        },
+        "risk_factors": {
+          "fire_probability": 0.9204556941986084,
+          "temperature": 38.3,
+          "humidity": 28.0,
+          "wind_speed": 40.0,
+          "fwi": 193.56637229676443,
+          "dsr": 303.5692979393204
+        }
+      }
+    ],
+    "2025-05-25": [
+      {
+        "time": "21:00:00",
+        "location": {
+          "latitude": 44.6208,
+          "longitude": -72.5141
+        },
+        "risk_factors": {
+          "fire_probability": 0.918122410774231,
+          "temperature": 35.7,
+          "humidity": 13.0,
+          "wind_speed": 40.0,
+          "fwi": 186.8244333639634,
+          "dsr": 285.1060981254739
+        }
+      }
+    ],
+    "2025-05-26": [
+      {
+        "time": "00:00:00",
+        "location": {
+          "latitude": 45.0179,
+          "longitude": -73.9177
+        },
+        "risk_factors": {
+          "fire_probability": 0.9171935319900513,
+          "temperature": 37.4,
+          "humidity": 38.0,
+          "wind_speed": 36.0,
+          "fwi": 150.04646548338795,
+          "dsr": 193.41427144488844
+        }
+      }
+    ],
+    "2025-06-04": [
+      {
+        "time": "13:00:00",
+        "location": {
+          "latitude": 45.5064,
+          "longitude": -72.1042
+        },
+        "risk_factors": {
+          "fire_probability": 0.9252402186393738,
+          "temperature": 39.4,
+          "humidity": 31.0,
+          "wind_speed": 40.0,
+          "fwi": 175.8370803357628,
+          "dsr": 256.10285811252777
+        }
+      }
+    ],
+    "2025-06-06": [
+      {
+        "time": "01:00:00",
+        "location": {
+          "latitude": 45.5058,
+          "longitude": -73.4795
+        },
+        "risk_factors": {
+          "fire_probability": 0.9127228260040283,
+          "temperature": 37.6,
+          "humidity": 36.0,
+          "wind_speed": 34.0,
+          "fwi": 125.04987938595053,
+          "dsr": 140.08973205876165
+        }
+      }
+    ],
+    "2025-07-08": [
+      {
+        "time": "08:00:00",
+        "location": {
+          "latitude": 44.2776,
+          "longitude": -73.6413
+        },
+        "risk_factors": {
+          "fire_probability": 0.9211747646331787,
+          "temperature": 34.5,
+          "humidity": 38.0,
+          "wind_speed": 37.0,
+          "fwi": 135.52584098865435,
+          "dsr": 161.52808353076293
+        }
+      }
+    ],
+    "2025-07-18": [
+      {
+        "time": "06:00:00",
+        "location": {
+          "latitude": 44.4955,
+          "longitude": -72.5017
+        },
+        "risk_factors": {
+          "fire_probability": 0.9161524772644043,
+          "temperature": 35.4,
+          "humidity": 28.0,
+          "wind_speed": 29.0,
+          "fwi": 139.27497392161902,
+          "dsr": 169.5212967809819
+        }
+      }
+    ],
+    "2025-10-21": [
+      {
+        "time": "16:00:00",
+        "location": {
+          "latitude": 45.5012,
+          "longitude": -73.642
+        },
+        "risk_factors": {
+          "fire_probability": 0.9200757741928101,
+          "temperature": 34.8,
+          "humidity": 14.0,
+          "wind_speed": 39.0,
+          "fwi": 154.56431553655395,
+          "dsr": 203.8413326904307
+        }
+      }
+    ],
+    "2025-10-23": [
+      {
+        "time": "08:00:00",
+        "location": {
+          "latitude": 45.7478,
+          "longitude": -72.6109
+        },
+        "risk_factors": {
+          "fire_probability": 0.9114476442337036,
+          "temperature": 34.8,
+          "humidity": 19.0,
+          "wind_speed": 40.0,
+          "fwi": 137.12902941763008,
+          "dsr": 164.92555180767692
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "resources": {
+    "smoke_jumpers": {
+      "name": "Smoke Jumpers",
+      "deployment_time_minutes": 30.0,
+      "cost": 5000,
+      "total_units": 5,
+      "used_units": 5,
+      "available_units": 0
+    },
+    "fire_engines": {
+      "name": "Fire Engines",
+      "deployment_time_minutes": 60.0,
+      "cost": 2000,
+      "total_units": 10,
+      "used_units": 10,
+      "available_units": 0
+    },
+    "helicopters": {
+      "name": "Helicopters",
+      "deployment_time_minutes": 45.0,
+      "cost": 8000,
+      "total_units": 3,
+      "used_units": 3,
+      "available_units": 0
+    },
+    "tanker_planes": {
+      "name": "Tanker Planes",
+      "deployment_time_minutes": 120.0,
+      "cost": 15000,
+      "total_units": 2,
+      "used_units": 2,
+      "available_units": 0
+    },
+    "ground_crews": {
+      "name": "Ground Crews",
+      "deployment_time_minutes": 90.0,
+      "cost": 3000,
+      "total_units": 8,
+      "used_units": 8,
+      "available_units": 0
+    }
+  },
+  "events": [
+    {
+      "timestamp": "2024-01-01T00:00:00",
+      "fire_start_time": "2023-12-31T23:07:00",
+      "location": "45.7747,-73.3052",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-01-03T02:00:00",
+      "fire_start_time": "2024-01-03T01:53:00",
+      "location": "44.5917,-72.7931",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-01-03T10:00:00",
+      "fire_start_time": "2024-01-03T09:29:00",
+      "location": "44.5963,-72.3298",
+      "severity": "high",
+      "handled": true,
+      "assigned_resource": "smoke_jumpers"
+    },
+    {
+      "timestamp": "2024-01-13T03:00:00",
+      "fire_start_time": "2024-01-13T02:04:00",
+      "location": "44.0596,-72.3365",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-01-18T07:00:00",
+      "fire_start_time": "2024-01-18T06:54:00",
+      "location": "45.8991,-72.4297",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-01-29T11:00:00",
+      "fire_start_time": "2024-01-29T10:11:00",
+      "location": "45.3772,-72.4617",
+      "severity": "high",
+      "handled": true,
+      "assigned_resource": "smoke_jumpers"
+    },
+    {
+      "timestamp": "2024-02-07T23:00:00",
+      "fire_start_time": "2024-02-07T22:38:00",
+      "location": "45.2376,-72.7731",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-02-13T14:00:00",
+      "fire_start_time": "2024-02-13T13:05:00",
+      "location": "45.5061,-73.5626",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-03-17T04:00:00",
+      "fire_start_time": "2024-03-17T03:58:00",
+      "location": "44.7745,-72.3508",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-03-17T08:00:00",
+      "fire_start_time": "2024-03-17T07:10:00",
+      "location": "44.7544,-73.6241",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-03-29T08:00:00",
+      "fire_start_time": "2024-03-29T07:29:00",
+      "location": "44.5771,-73.4983",
+      "severity": "high",
+      "handled": true,
+      "assigned_resource": "smoke_jumpers"
+    },
+    {
+      "timestamp": "2024-04-04T05:00:00",
+      "fire_start_time": "2024-04-04T04:37:00",
+      "location": "44.8483,-73.7878",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-04-04T20:00:00",
+      "fire_start_time": "2024-04-04T19:17:00",
+      "location": "45.237,-72.3099",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-06-06T02:00:00",
+      "fire_start_time": "2024-06-06T01:22:00",
+      "location": "45.0448,-72.7419",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "ground_crews"
+    },
+    {
+      "timestamp": "2024-06-14T23:00:00",
+      "fire_start_time": "2024-06-14T22:23:00",
+      "location": "44.5355,-73.697",
+      "severity": "high",
+      "handled": true,
+      "assigned_resource": "smoke_jumpers"
+    },
+    {
+      "timestamp": "2024-06-19T03:00:00",
+      "fire_start_time": "2024-06-19T02:25:00",
+      "location": "45.8497,-72.3991",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-07-08T11:00:00",
+      "fire_start_time": "2024-07-08T10:06:00",
+      "location": "45.4207,-73.5608",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-07-26T18:00:00",
+      "fire_start_time": "2024-07-26T17:55:00",
+      "location": "45.1636,-72.7738",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-08-11T17:00:00",
+      "fire_start_time": "2024-08-11T16:03:00",
+      "location": "44.422,-73.8217",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-08-15T16:00:00",
+      "fire_start_time": "2024-08-15T15:10:00",
+      "location": "44.9893,-72.9472",
+      "severity": "high",
+      "handled": true,
+      "assigned_resource": "smoke_jumpers"
+    },
+    {
+      "timestamp": "2024-08-26T04:00:00",
+      "fire_start_time": "2024-08-26T03:03:00",
+      "location": "44.4875,-73.9055",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-09-04T08:00:00",
+      "fire_start_time": "2024-09-04T07:08:00",
+      "location": "45.9548,-72.0209",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-09-04T23:00:00",
+      "fire_start_time": "2024-09-04T22:16:00",
+      "location": "45.0288,-73.4796",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "fire_engines"
+    },
+    {
+      "timestamp": "2024-09-08T13:00:00",
+      "fire_start_time": "2024-09-08T12:46:00",
+      "location": "45.1302,-73.0222",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "helicopters"
+    },
+    {
+      "timestamp": "2024-09-23T19:00:00",
+      "fire_start_time": "2024-09-23T18:27:00",
+      "location": "44.0927,-73.8376",
+      "severity": "low",
+      "handled": true,
+      "assigned_resource": "helicopters"
+    },
+    {
+      "timestamp": "2024-09-28T18:00:00",
+      "fire_start_time": "2024-09-28T17:54:00",
+      "location": "45.532,-72.0069",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "helicopters"
+    },
+    {
+      "timestamp": "2024-10-16T14:00:00",
+      "fire_start_time": "2024-10-16T13:23:00",
+      "location": "44.7212,-73.1703",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "tanker_planes"
+    },
+    {
+      "timestamp": "2024-10-27T07:00:00",
+      "fire_start_time": "2024-10-27T06:44:00",
+      "location": "44.0144,-73.8114",
+      "severity": "medium",
+      "handled": true,
+      "assigned_resource": "tanker_planes"
+    },
+    {
+      "timestamp": "2024-11-14T06:00:00",
+      "fire_start_time": "2024-11-14T05:40:00",
+      "location": "44.4543,-73.5505",
+      "severity": "medium",
+      "handled": false,
+      "assigned_resource": null
+    },
+    {
+      "timestamp": "2024-11-18T20:00:00",
+      "fire_start_time": "2024-11-18T19:57:00",
+      "location": "45.1862,-72.7336",
+      "severity": "low",
+      "handled": false,
+      "assigned_resource": null
+    },
+    {
+      "timestamp": "2024-12-16T20:00:00",
+      "fire_start_time": "2024-12-16T19:01:00",
+      "location": "45.2517,-73.3938",
+      "severity": "high",
+      "handled": false,
+      "assigned_resource": null
+    },
+    {
+      "timestamp": "2024-12-23T03:00:00",
+      "fire_start_time": "2024-12-23T02:50:00",
+      "location": "44.6085,-73.0306",
+      "severity": "high",
+      "handled": false,
+      "assigned_resource": null
+    }
+  ],
+  "damage_costs": {
+    "low": 50000,
+    "medium": 100000,
+    "high": 200000
+  },
+  "operational_costs": 123000,
+  "missed_response_costs": 550000,
+  "statistics": {
+    "addressed": {
+      "low": 13,
+      "medium": 10,
+      "high": 5
+    },
+    "missed": {
+      "low": 1,
+      "medium": 1,
+      "high": 2
+    }
+  }
+}
