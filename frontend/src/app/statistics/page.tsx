@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import PieChart from "@/app/components/PieChart";
 import BarChart from "@/app/components/BarChart";
 import GroupedBarChart from "@/app/components/StackedBarChart";
 import { motion } from "framer-motion";
 
 export default function StatisticsPage() {
-  // Mock data that simulates the JSON from the backend
+  // State initialized with default values
   const [data, setData] = useState({
     total_events: 32,
     fires_addressed: 28,
@@ -19,6 +19,23 @@ export default function StatisticsPage() {
       missed: { low: 1, medium: 1, high: 2 },
     },
   });
+
+  useEffect(() => {
+    // Fetch data from final_data.json
+    fetch('/data/final_data.json')
+      .then(response => response.json())
+      .then(jsonData => {
+        setData({
+          total_events: jsonData.total_events,
+          fires_addressed: jsonData.fires_addressed,
+          fires_missed: jsonData.fires_missed,
+          operational_costs: jsonData.operational_costs,
+          damage_costs: jsonData.damage_costs,
+          severity_report: jsonData.severity_report
+        });
+      })
+      .catch(error => console.error('Error loading data:', error));
+  }, []);
 
   const [showDetails, setShowDetails] = useState(false);
   const tableRef = useRef<HTMLDivElement>(null); // Reference to the table section
@@ -89,9 +106,28 @@ export default function StatisticsPage() {
           />
         </motion.div>
 
-        {/* Grouped Bar Chart */}
+        {/* Grouped Bar Charts */}
         <motion.div
-          className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-2"
+          className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-1"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-xl font-semibold mb-4">Fires Addressed by Severity</h2>
+          <GroupedBarChart
+            data={[
+              {
+                category: "Fires Addressed",
+                low: data.severity_report.addressed.low,
+                medium: data.severity_report.addressed.medium,
+                high: data.severity_report.addressed.high,
+              },
+            ]}
+          />
+        </motion.div>
+
+        <motion.div
+          className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-1"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
@@ -136,7 +172,10 @@ export default function StatisticsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300 bg-white">
-              {/* Static Categories */}
+              {/* Overview Section */}
+              <tr className="bg-gray-50">
+                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">Overview</td>
+              </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium">Total Events</td>
                 <td className="px-6 py-4 text-gray-600">{data.total_events}</td>
@@ -149,6 +188,11 @@ export default function StatisticsPage() {
                 <td className="px-6 py-4 text-gray-700 font-medium">Fires Missed</td>
                 <td className="px-6 py-4 text-gray-600">{data.fires_missed}</td>
               </tr>
+
+              {/* Cost Analysis Section */}
+              <tr className="bg-gray-50">
+                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">Cost Analysis</td>
+              </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium">Operational Costs</td>
                 <td className="px-6 py-4 text-gray-600">${data.operational_costs.toLocaleString()}</td>
@@ -158,18 +202,55 @@ export default function StatisticsPage() {
                 <td className="px-6 py-4 text-gray-600">${data.damage_costs.toLocaleString()}</td>
               </tr>
 
+              {/* Severity Section Header */}
+              <tr className="bg-gray-50">
+                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">Severity Report</td>
+              </tr>
+
               {/* Severity (Addressed) */}
               <tr className="hover:bg-gray-100">
-                <td className="px-6 py-4 text-gray-700 font-medium">Severity: Low (Addressed)</td>
+                <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
+                  <div className="w-4 h-4 rounded bg-[#f1d405] mr-3"></div>
+                  Severity: Low (Addressed)
+                </td>
                 <td className="px-6 py-4 text-gray-600">{data.severity_report.addressed.low}</td>
               </tr>
               <tr className="hover:bg-gray-100">
-                <td className="px-6 py-4 text-gray-700 font-medium">Severity: Medium (Addressed)</td>
+                <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
+                  <div className="w-4 h-4 rounded bg-[#f78a08] mr-3"></div>
+                  Severity: Medium (Addressed)
+                </td>
                 <td className="px-6 py-4 text-gray-600">{data.severity_report.addressed.medium}</td>
               </tr>
               <tr className="hover:bg-gray-100">
-                <td className="px-6 py-4 text-gray-700 font-medium">Severity: High (Addressed)</td>
+                <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
+                  <div className="w-4 h-4 rounded bg-[#cc0000] mr-3"></div>
+                  Severity: High (Addressed)
+                </td>
                 <td className="px-6 py-4 text-gray-600">{data.severity_report.addressed.high}</td>
+              </tr>
+
+              {/* Severity (Missed) */}
+              <tr className="hover:bg-gray-100">
+                <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
+                  <div className="w-4 h-4 rounded bg-[#f1d405] mr-3"></div>
+                  Severity: Low (Missed)
+                </td>
+                <td className="px-6 py-4 text-gray-600">{data.severity_report.missed.low}</td>
+              </tr>
+              <tr className="hover:bg-gray-100">
+                <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
+                  <div className="w-4 h-4 rounded bg-[#f78a08] mr-3"></div>
+                  Severity: Medium (Missed)
+                </td>
+                <td className="px-6 py-4 text-gray-600">{data.severity_report.missed.medium}</td>
+              </tr>
+              <tr className="hover:bg-gray-100">
+                <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
+                  <div className="w-4 h-4 rounded bg-[#cc0000] mr-3"></div>
+                  Severity: High (Missed)
+                </td>
+                <td className="px-6 py-4 text-gray-600">{data.severity_report.missed.high}</td>
               </tr>
             </tbody>
           </table>

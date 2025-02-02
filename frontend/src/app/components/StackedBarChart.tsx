@@ -26,9 +26,9 @@ export default function GroupedBarChart({ data }: GroupedBarChartProps) {
     d3.select(svgRef.current).selectAll("*").remove();
     d3.select(legendRef.current).selectAll("*").remove();
 
-    const width = 600;
+    const width = 400;
     const height = 400;
-    const margin = { top: 20, right: 30, bottom: 70, left: 60 };
+    const margin = { top: 20, right: 30, bottom: 100, left: 60 };
 
     let isAnimationRunning = true; // Track whether animation is running
 
