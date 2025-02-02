@@ -13,10 +13,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 
-        1) DESKTOP SIDEBAR (md and up):
-        hidden on small screens, shown on >= md 
-      */}
       <nav className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-orange-500 to-red-600 text-white shadow-lg flex-col py-8 px-4">
         {/* Logo & Title */}
         <Link href="/" passHref>
@@ -34,7 +30,7 @@ export default function Navbar() {
               <Flame size={32} className="text-yellow-400" />
             </motion.div>
             <motion.span className="text-2xl font-bold" whileHover={{ scale: 1.1 }}>
-              Wildfire Resource Deployer
+              Wildfirex
             </motion.span>
           </motion.div>
         </Link>
@@ -62,7 +58,7 @@ export default function Navbar() {
             transition={{ duration: 0.5 }}
           >
             <Flame size={28} className="text-yellow-400" />
-            <span className="text-xl font-bold">Wildfire Resource Deployer</span>
+            <span className="text-xl font-bold">Wildfirex</span>
           </motion.div>
         </Link>
 
