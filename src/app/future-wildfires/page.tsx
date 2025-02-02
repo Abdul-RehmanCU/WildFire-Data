@@ -198,7 +198,7 @@ export default function FutureWildfires() {
               center={selectedLocation || [44.5, -72.5]}
               zoom={selectedLocation ? 10 : 8} // Default closer zoom when a location is selected
               style={{ width: "90%", height: "80%" }}
-              whenReady={(mapInstance: { target: Map }) => {
+              whenReady= {(mapInstance: { target: Map }) => {
                 const map = mapInstance.target; // Explicitly type the map as a Leaflet Map
                 const bounds = new L.LatLngBounds(
                   filteredPredictions.flatMap(([_, predictions]) =>
