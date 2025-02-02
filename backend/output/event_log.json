@@ -1,0 +1,23 @@
+[
+  {
+    "timestamp": "2024-01-01T10:00:00",
+    "severity": "high",
+    "response": "SUCCESS",
+    "resource": "fire_engines",
+    "cost": 2000.0
+  },
+  {
+    "timestamp": "2024-01-01T10:30:00",
+    "severity": "medium",
+    "response": "SUCCESS",
+    "resource": "fire_engines",
+    "cost": 2000.0
+  },
+  {
+    "timestamp": "2024-01-01T11:00:00",
+    "severity": "low",
+    "response": "SUCCESS",
+    "resource": "fire_engines",
+    "cost": 2000.0
+  }
+]

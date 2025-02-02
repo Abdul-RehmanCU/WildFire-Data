@@ -1,0 +1,49 @@
+{
+  "total_events": 3,
+  "fires_addressed": 3,
+  "fires_missed": 0,
+  "operational_costs": 6000.0,
+  "damage_costs": 0,
+  "severity_report": {
+    "addressed": {
+      "low": 1,
+      "medium": 1,
+      "high": 1
+    },
+    "missed": {
+      "low": 0,
+      "medium": 0,
+      "high": 0
+    }
+  },
+  "resource_utilization": {
+    "smoke_jumpers": {
+      "total": 5,
+      "used": 0,
+      "available": 5
+    },
+    "fire_engines": {
+      "total": 10,
+      "used": 3,
+      "available": 7
+    },
+    "helicopters": {
+      "total": 3,
+      "used": 0,
+      "available": 3
+    },
+    "tanker_planes": {
+      "total": 2,
+      "used": 0,
+      "available": 2
+    },
+    "ground_crews": {
+      "total": 8,
+      "used": 0,
+      "available": 8
+    }
+  },
+  "efficiency_metrics": {
+    "avg_cost_per_response": 2000.0
+  }
+}
