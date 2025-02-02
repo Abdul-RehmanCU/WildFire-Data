@@ -1,14 +1,14 @@
 {
-  "total_events": 3,
-  "fires_addressed": 3,
+  "total_events": 28,
+  "fires_addressed": 28,
   "fires_missed": 0,
-  "operational_costs": 6000.0,
+  "operational_costs": 123000.0,
   "damage_costs": 0,
   "severity_report": {
     "addressed": {
-      "low": 1,
-      "medium": 1,
-      "high": 1
+      "low": 13,
+      "medium": 10,
+      "high": 5
     },
     "missed": {
       "low": 0,
@@ -19,31 +19,31 @@
   "resource_utilization": {
     "smoke_jumpers": {
       "total": 5,
-      "used": 0,
-      "available": 5
+      "used": 5,
+      "available": 0
     },
     "fire_engines": {
       "total": 10,
-      "used": 3,
-      "available": 7
+      "used": 10,
+      "available": 0
     },
     "helicopters": {
       "total": 3,
-      "used": 0,
-      "available": 3
+      "used": 3,
+      "available": 0
     },
     "tanker_planes": {
       "total": 2,
-      "used": 0,
-      "available": 2
+      "used": 2,
+      "available": 0
     },
     "ground_crews": {
       "total": 8,
-      "used": 0,
-      "available": 8
+      "used": 8,
+      "available": 0
     }
   },
   "efficiency_metrics": {
-    "avg_cost_per_response": 2000.0
+    "avg_cost_per_response": 4392.857142857143
   }
 }

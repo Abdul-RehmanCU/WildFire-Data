@@ -7,41 +7,127 @@ import GroupedBarChart from "@/app/components/StackedBarChart";
 import { motion } from "framer-motion";
 
 export default function StatisticsPage() {
-  // State initialized with default values
+  const [hasData, setHasData] = useState(false); // NEW: Tracks if we actually found data
   const [data, setData] = useState({
-    total_events: 32,
-    fires_addressed: 28,
-    fires_missed: 4,
-    operational_costs: 123000,
-    damage_costs: 550000,
+    total_events: 0,
+    fires_addressed: 0,
+    fires_missed: 0,
+    operational_costs: 0,
+    damage_costs: 0,
     severity_report: {
-      addressed: { low: 13, medium: 10, high: 5 },
-      missed: { low: 1, medium: 1, high: 2 },
+      addressed: { low: 0, medium: 0, high: 0 },
+      missed: { low: 0, medium: 0, high: 0 },
     },
   });
 
+  const [showDetails, setShowDetails] = useState(false);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
+
+  //
+  // 1) On mount, read raw data from localStorage -> POST to backend for final report
+  //
   useEffect(() => {
-    // Fetch data from final_data.json
-    fetch('/data/final_data.json')
-      .then(response => response.json())
-      .then(jsonData => {
-        setData({
-          total_events: jsonData.total_events,
-          fires_addressed: jsonData.fires_addressed,
-          fires_missed: jsonData.fires_missed,
-          operational_costs: jsonData.operational_costs,
-          damage_costs: jsonData.damage_costs,
-          severity_report: jsonData.severity_report
-        });
-      })
-      .catch(error => console.error('Error loading data:', error));
+    const storedStats = localStorage.getItem("statisticsData");
+    if (storedStats) {
+      const rawData = JSON.parse(storedStats);
+      setHasData(true); // We have data, so set to true
+
+      // Call your backend with that rawData to get the final report
+      fetchFinalReport(rawData);
+    } else {
+      // No data found
+      console.log("No statistics raw data found in localStorage.");
+    }
   }, []);
 
-  const [showDetails, setShowDetails] = useState(false);
-  const tableRef = useRef<HTMLDivElement>(null); // Reference to the table section
-  const topRef = useRef<HTMLDivElement>(null); // Reference to the top section
+  function convertUnitsToPythonFormat(units: any[]): Record<string, any> {
+    const result: Record<string, any> = {};
+  
+    units.forEach(unit => {
+      // if userUnits might have .name like "Smoke Jumpers"
+      // we create a key "smoke_jumpers"
+      const key = unit.name.toLowerCase().replace(/\s+/g, "_");
+  
+      result[key] = {
+        deployment_time_minutes: unit.deploymentTime || unit.deployment_time_minutes || 30,
+        cost: unit.costPerOperation || unit.cost || 5000,
+        total_units: unit.unitsAvailable || unit.total_units || 5
+      };
+    });
+  
+    return result;
+  }
 
-  // Handle toggling view details and scrolling
+  //
+  // 2) Fetch final report from the Flask backend
+  //
+  async function fetchFinalReport(rawDataFromCSV: any[]) {
+    try {
+      // 1) Load from localStorage
+      const storedUnits = localStorage.getItem("operationalUnits");
+      const storedCosts = localStorage.getItem("damageCosts");
+  
+      // 2) Parse them if they exist
+      const userUnits = storedUnits ? JSON.parse(storedUnits) : null;
+      const userCosts = storedCosts ? JSON.parse(storedCosts) : null;
+  
+      // 3) Convert userUnits into Python-compatible structure if needed
+      //    For example, if your userUnits look like:
+      //      { name: "Smoke Jumpers", deploymentTime: 30, costPerOperation: 5000, unitsAvailable: 5 }
+      //    Then your Python expects:
+      //      { "smoke_jumpers": { "deployment_time_minutes": 30, "cost": 5000, "total_units": 5 } }
+      //    But if your userUnits already match the Python naming, skip this step.
+  
+      const customResources = userUnits ? convertUnitsToPythonFormat(userUnits) : undefined;
+      const customDamageCosts = userCosts || undefined; // if already { low, medium, high }, that’s fine
+  
+      // 4) Build the body object
+      const bodyObject: any = {
+        rawData: rawDataFromCSV
+      };
+  
+      if (customResources) {
+        bodyObject.customResources = customResources;
+      }
+      if (customDamageCosts) {
+        bodyObject.customDamageCosts = customDamageCosts;
+      }
+  
+      // 5) Send the request
+      const response = await fetch("http://localhost:5000/api/p1/get_final_report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyObject),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+  
+      // 6) Final JSON with stats
+      const finalJson = await response.json();
+  
+      setData({
+        total_events: finalJson.total_events,
+        fires_addressed: finalJson.fires_addressed,
+        fires_missed: finalJson.fires_missed,
+        operational_costs: finalJson.operational_costs,
+        damage_costs: finalJson.damage_costs,
+        severity_report: finalJson.severity_report,
+      });
+  
+      console.log("Successfully fetched final report:", finalJson);
+    } catch (error) {
+      console.error("Error calling backend /api/p1/get_final_report:", error);
+    }
+  }
+
+  //
+  // 3) Toggle between "Show More" / "Hide" details
+  //
   const handleViewDetails = () => {
     setShowDetails((prev) => {
       if (!prev) {
@@ -50,7 +136,7 @@ export default function StatisticsPage() {
           tableRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 300);
       } else {
-        // If hiding details, scroll back to top
+        // If hiding details, scroll to top
         setTimeout(() => {
           topRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 300);
@@ -59,9 +145,21 @@ export default function StatisticsPage() {
     });
   };
 
+  //
+  // If we found no data in localStorage, show a simple message
+  //
+  if (!hasData) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen text-gray-800">
+        <h2 className="text-2xl font-bold mb-4">No Statistics Data Found</h2>
+        <p>Please upload your CSV data first.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center space-y-8 min-h-screen text-gray-900 p-6">
-      {/* Page Title */}
+      {/* Title */}
       <motion.h1
         ref={topRef}
         className="text-4xl font-bold text-center"
@@ -72,9 +170,9 @@ export default function StatisticsPage() {
         Wildfire Statistics
       </motion.h1>
 
-      {/* Responsive Grid Layout */}
+      {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl w-full">
-        {/* Pie Chart */}
+        {/* Pie Chart: Addressed vs Missed */}
         <motion.div
           className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-1"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -90,7 +188,7 @@ export default function StatisticsPage() {
           />
         </motion.div>
 
-        {/* Bar Chart */}
+        {/* Bar Chart: Operational vs Damage Costs */}
         <motion.div
           className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-1"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -106,7 +204,7 @@ export default function StatisticsPage() {
           />
         </motion.div>
 
-        {/* Grouped Bar Charts */}
+        {/* Fires Addressed by Severity */}
         <motion.div
           className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-1"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -126,6 +224,7 @@ export default function StatisticsPage() {
           />
         </motion.div>
 
+        {/* Fires Missed by Severity */}
         <motion.div
           className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center md:col-span-1"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -146,7 +245,7 @@ export default function StatisticsPage() {
         </motion.div>
       </div>
 
-      {/* View More Details Button */}
+      {/* View Details Button */}
       <button
         className="mt-8 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition duration-300"
         onClick={handleViewDetails}
@@ -174,7 +273,9 @@ export default function StatisticsPage() {
             <tbody className="divide-y divide-gray-300 bg-white">
               {/* Overview Section */}
               <tr className="bg-gray-50">
-                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">Overview</td>
+                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">
+                  Overview
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium">Total Events</td>
@@ -191,66 +292,86 @@ export default function StatisticsPage() {
 
               {/* Cost Analysis Section */}
               <tr className="bg-gray-50">
-                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">Cost Analysis</td>
+                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">
+                  Cost Analysis
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium">Operational Costs</td>
-                <td className="px-6 py-4 text-gray-600">${data.operational_costs.toLocaleString()}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  ${data.operational_costs.toLocaleString()}
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium">Damage Costs</td>
-                <td className="px-6 py-4 text-gray-600">${data.damage_costs.toLocaleString()}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  ${data.damage_costs.toLocaleString()}
+                </td>
               </tr>
 
               {/* Severity Section Header */}
               <tr className="bg-gray-50">
-                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">Severity Report</td>
+                <td colSpan={2} className="px-6 py-4 text-gray-800 font-semibold">
+                  Severity Report
+                </td>
               </tr>
 
-              {/* Severity (Addressed) */}
+              {/* Severity: Addressed (Low, Medium, High) */}
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
                   <div className="w-4 h-4 rounded bg-[#f1d405] mr-3"></div>
                   Severity: Low (Addressed)
                 </td>
-                <td className="px-6 py-4 text-gray-600">{data.severity_report.addressed.low}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {data.severity_report.addressed.low}
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
                   <div className="w-4 h-4 rounded bg-[#f78a08] mr-3"></div>
                   Severity: Medium (Addressed)
                 </td>
-                <td className="px-6 py-4 text-gray-600">{data.severity_report.addressed.medium}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {data.severity_report.addressed.medium}
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
                   <div className="w-4 h-4 rounded bg-[#cc0000] mr-3"></div>
                   Severity: High (Addressed)
                 </td>
-                <td className="px-6 py-4 text-gray-600">{data.severity_report.addressed.high}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {data.severity_report.addressed.high}
+                </td>
               </tr>
 
-              {/* Severity (Missed) */}
+              {/* Severity: Missed (Low, Medium, High) */}
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
                   <div className="w-4 h-4 rounded bg-[#f1d405] mr-3"></div>
                   Severity: Low (Missed)
                 </td>
-                <td className="px-6 py-4 text-gray-600">{data.severity_report.missed.low}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {data.severity_report.missed.low}
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
                   <div className="w-4 h-4 rounded bg-[#f78a08] mr-3"></div>
                   Severity: Medium (Missed)
                 </td>
-                <td className="px-6 py-4 text-gray-600">{data.severity_report.missed.medium}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {data.severity_report.missed.medium}
+                </td>
               </tr>
               <tr className="hover:bg-gray-100">
                 <td className="px-6 py-4 text-gray-700 font-medium flex items-center">
                   <div className="w-4 h-4 rounded bg-[#cc0000] mr-3"></div>
                   Severity: High (Missed)
                 </td>
-                <td className="px-6 py-4 text-gray-600">{data.severity_report.missed.high}</td>
+                <td className="px-6 py-4 text-gray-600">
+                  {data.severity_report.missed.high}
+                </td>
               </tr>
             </tbody>
           </table>

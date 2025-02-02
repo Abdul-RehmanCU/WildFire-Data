@@ -114,7 +114,7 @@ export default function PieChart({ data }: PieChartProps) {
       .attr("alignment-baseline", "middle")
       .style("font-size", "14px")
       .style("fill", "white")
-      .text((d) => d.data.value);
+      .text((d) => d.data.value === 0 ? "" : d.data.value);
 
     // Add Legend
     const legend = d3.select(legendRef.current);
