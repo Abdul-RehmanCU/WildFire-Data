@@ -172,7 +172,12 @@ export default function FutureWildfires() {
 
   // 3) Otherwise, we have data. Render the normal UI
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6 ml-64">
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6 
+      pt-16         /* Always add some top space for the mobile navbar */
+      md:pt-6       /* (Optional) reduce top space on medium+ if you only need big padding for mobile */
+      md:ml-64      /* Add left margin on medium+ to accommodate the sidebar width */
+    "
+    >
       {/* Title & Date Filters */}
       <motion.h1
         className="text-4xl font-bold text-center mb-6"

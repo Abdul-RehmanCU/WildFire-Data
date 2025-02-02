@@ -7,7 +7,15 @@ export default function HomePage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
+    <div
+    className="
+      flex flex-col items-center justify-center
+      min-h-screen bg-gray-50 px-6
+      pt-16       /* So it's not overlapped by the top nav on mobile */
+      md:pt-6     /* (Optional) reduce top padding on md+ if you want */
+      md:ml-64    /* So it's not overlapped by the fixed sidebar on md+ */
+    "
+  >
       {/* Title Section */}
       <motion.h1 
         className="text-6xl font-extrabold text-gray-900 mb-6 text-center"
