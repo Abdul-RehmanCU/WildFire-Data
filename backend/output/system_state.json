@@ -12,8 +12,8 @@
       "name": "fire_engines",
       "deployment_time_minutes": 60.0,
       "cost": 2000.0,
-      "total_units": 8,
-      "used_units": 8,
+      "total_units": 10,
+      "used_units": 10,
       "available_units": 0
     },
     "helicopters": {
@@ -112,7 +112,7 @@
       "location": "44.7745,-72.3508",
       "severity": "medium",
       "handled": true,
-      "assigned_resource": "ground_crews"
+      "assigned_resource": "fire_engines"
     },
     {
       "timestamp": "2024-03-17T08:00:00",
@@ -120,7 +120,7 @@
       "location": "44.7544,-73.6241",
       "severity": "low",
       "handled": true,
-      "assigned_resource": "ground_crews"
+      "assigned_resource": "fire_engines"
     },
     {
       "timestamp": "2024-03-29T08:00:00",
@@ -176,7 +176,7 @@
       "location": "45.4207,-73.5608",
       "severity": "medium",
       "handled": true,
-      "assigned_resource": "smoke_jumpers"
+      "assigned_resource": "ground_crews"
     },
     {
       "timestamp": "2024-07-26T18:00:00",
@@ -184,7 +184,7 @@
       "location": "45.1636,-72.7738",
       "severity": "medium",
       "handled": true,
-      "assigned_resource": "smoke_jumpers"
+      "assigned_resource": "ground_crews"
     },
     {
       "timestamp": "2024-08-11T17:00:00",
@@ -216,7 +216,7 @@
       "location": "45.9548,-72.0209",
       "severity": "low",
       "handled": true,
-      "assigned_resource": "helicopters"
+      "assigned_resource": "smoke_jumpers"
     },
     {
       "timestamp": "2024-09-04T23:00:00",
@@ -224,7 +224,7 @@
       "location": "45.0288,-73.4796",
       "severity": "low",
       "handled": true,
-      "assigned_resource": "helicopters"
+      "assigned_resource": "smoke_jumpers"
     },
     {
       "timestamp": "2024-09-08T13:00:00",
@@ -240,7 +240,7 @@
       "location": "44.0927,-73.8376",
       "severity": "low",
       "handled": true,
-      "assigned_resource": "tanker_planes"
+      "assigned_resource": "helicopters"
     },
     {
       "timestamp": "2024-09-28T18:00:00",
@@ -248,23 +248,23 @@
       "location": "45.532,-72.0069",
       "severity": "medium",
       "handled": true,
-      "assigned_resource": "tanker_planes"
+      "assigned_resource": "helicopters"
     },
     {
       "timestamp": "2024-10-16T14:00:00",
       "fire_start_time": "2024-10-16T13:23:00",
       "location": "44.7212,-73.1703",
       "severity": "medium",
-      "handled": false,
-      "assigned_resource": null
+      "handled": true,
+      "assigned_resource": "tanker_planes"
     },
     {
       "timestamp": "2024-10-27T07:00:00",
       "fire_start_time": "2024-10-27T06:44:00",
       "location": "44.0144,-73.8114",
       "severity": "medium",
-      "handled": false,
-      "assigned_resource": null
+      "handled": true,
+      "assigned_resource": "tanker_planes"
     },
     {
       "timestamp": "2024-11-14T06:00:00",
@@ -304,17 +304,17 @@
     "medium": 100000,
     "high": 200000
   },
-  "operational_costs": 119000.0,
-  "missed_response_costs": 750000,
+  "operational_costs": 123000.0,
+  "missed_response_costs": 550000,
   "statistics": {
     "addressed": {
       "low": 13,
-      "medium": 8,
+      "medium": 10,
       "high": 5
     },
     "missed": {
       "low": 1,
-      "medium": 3,
+      "medium": 1,
       "high": 2
     }
   }

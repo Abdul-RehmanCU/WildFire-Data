@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import PieChart from "@/app/components/PieChart";
 import BarChart from "@/app/components/BarChart";
@@ -7,6 +8,7 @@ import GroupedBarChart from "@/app/components/StackedBarChart";
 import { motion } from "framer-motion";
 
 export default function StatisticsPage() {
+  const router = useRouter()
   const [hasData, setHasData] = useState(false); // NEW: Tracks if we actually found data
   const [data, setData] = useState({
     total_events: 0,
@@ -153,6 +155,14 @@ export default function StatisticsPage() {
       <div className="flex flex-col items-center justify-center h-screen text-gray-800">
         <h2 className="text-2xl font-bold mb-4">No Statistics Data Found</h2>
         <p>Please upload your CSV data first.</p>
+        <motion.button
+          className="mt-12 px-8 py-4 bg-orange-600 text-white font-semibold rounded-md shadow-lg hover:bg-orange-700 transition-transform transform hover:scale-105 text-lg"
+          whileHover={{ scale: 1.05 }}
+          onClick={() => router.push("/upload-csv")}
+        >
+          Upload CSV Data
+        </motion.button>
+
       </div>
     );
   }
@@ -167,7 +177,7 @@ export default function StatisticsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        Wildfire Statistics
+        Resource Deploying Optimizer
       </motion.h1>
 
       {/* Charts */}
@@ -262,7 +272,7 @@ export default function StatisticsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-xl font-semibold mb-4">Detailed Wildfire Statistics</h2>
+          <h2 className="text-xl font-semibold mb-4">Detailed Wildfire Report</h2>
           <table className="w-full border-collapse shadow-lg overflow-hidden rounded-lg">
             <thead className="bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 text-gray-700 uppercase font-semibold">
               <tr>

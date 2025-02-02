@@ -4,45 +4,86 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react"; // Fire Icon
+import { useState } from "react";
+import { Menu, X } from "lucide-react"; // Mobile Menu Icons
 
-export default function Sidebar() {
+export default function Navbar() {
   const pathname = usePathname(); // Get current page path
+  const [isOpen, setIsOpen] = useState(false); // Mobile menu state
 
   return (
-    <nav className="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-orange-500 to-red-600 text-white shadow-lg flex flex-col py-8 px-4">
-      
-      {/* Wildfire Analyzer Logo - Clickable to Home */}
-      <Link href="/" passHref>
-        <motion.div
-          className="flex items-center space-x-2 mb-8 mx-auto cursor-pointer"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
+    <>
+      {/* Desktop Sidebar */}
+      <nav className="hidden md:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-orange-500 to-red-600 text-white shadow-lg flex-col py-8 px-4">
+        {/* Logo & Title */}
+        <Link href="/" passHref>
           <motion.div
-            animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            className="flex items-center space-x-2 mb-8 mx-auto cursor-pointer"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <Flame size={32} className="text-yellow-400" />
+            <motion.div
+              animate={{ scale: [1, 1.1, 1], opacity: [0.8, 1, 0.8] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Flame size={32} className="text-yellow-400" />
+            </motion.div>
+            <motion.span className="text-2xl font-bold" whileHover={{ scale: 1.1 }}>
+              Wildfire Resource Deployer 
+            </motion.span>
           </motion.div>
-          <motion.span className="text-2xl font-bold" whileHover={{ scale: 1.1 }}>
-            Wildfire Analyzer
-          </motion.span>
-        </motion.div>
-      </Link>
+        </Link>
 
-      {/* Navigation Links with Smooth Fade-In Animation */}
-      <div className="flex flex-col space-y-6">
-        <NavItem href="/" text="Home" pathname={pathname} delay={0.1} />
-        <NavItem href="/upload-csv" text="Upload CSV" pathname={pathname} delay={0.2} />
-        <NavItem href="/statistics" text="Statistics" pathname={pathname} delay={0.3} />
-        <NavItem href="/future-wildfires" text="Future Wildfires" pathname={pathname} delay={0.4} /> {/* NEW PAGE */}
+        {/* Navigation Links */}
+        <div className="flex flex-col space-y-6">
+          <NavItem href="/" text="Home" pathname={pathname} delay={0.1} />
+          <NavItem href="/upload-csv" text="Upload CSV" pathname={pathname} delay={0.2} />
+          <NavItem href="/statistics" text="Resource Deployer" pathname={pathname} delay={0.3} />
+          <NavItem href="/future-wildfires" text="Wildfire Predictor" pathname={pathname} delay={0.4} />
+        </div>
+      </nav>
+
+      {/* Mobile Navbar */}
+      <div className="md:hidden fixed top-0 left-0 w-full bg-gradient-to-b from-orange-500 to-red-600 text-white shadow-lg flex justify-between items-center py-4 px-6">
+        {/* Logo & Title */}
+        <Link href="/" passHref>
+          <motion.div
+            className="flex items-center space-x-2 cursor-pointer"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Flame size={28} className="text-yellow-400" />
+            <span className="text-xl font-bold">Wildfire Resource Deployer</span>
+          </motion.div>
+        </Link>
+
+        {/* Mobile Menu Button */}
+        <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
-    </nav>
+
+      {/* Mobile Menu Dropdown */}
+      {isOpen && (
+        <motion.div
+          className="md:hidden fixed top-14 left-0 w-full bg-orange-600 shadow-lg py-4 px-6 flex flex-col space-y-4"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <NavItem href="/" text="Home" pathname={pathname} delay={0.1} />
+          <NavItem href="/upload-csv" text="Upload CSV" pathname={pathname} delay={0.2} />
+          <NavItem href="/statistics" text="Resource Deployer" pathname={pathname} delay={0.3} />
+          <NavItem href="/future-wildfires" text="Wildfire Predictor" pathname={pathname} delay={0.4} />
+        </motion.div>
+      )}
+    </>
   );
 }
 
-// Helper Component for Navigation Links with Fade-In Animation
+// Navigation Item Component
 function NavItem({
   href,
   text,

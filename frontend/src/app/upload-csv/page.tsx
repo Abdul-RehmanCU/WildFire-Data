@@ -281,7 +281,7 @@ export default function UploadPage() {
             }}
             className={`px-4 py-2 rounded-lg transition ${
               uploadType === 'statistics'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-orange-600 hover:bg-orange-700 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -294,7 +294,7 @@ export default function UploadPage() {
             }}
             className={`px-4 py-2 rounded-lg transition ${
               uploadType === 'predictions'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-orange-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
